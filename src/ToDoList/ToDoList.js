@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 /*1.Write and add a to-do item.
 2. Show a to-do list
 3. Cross out a to-do-list item
@@ -13,10 +14,22 @@ const ToDoList = () => {
   };
 
   const onClickHandler = () => {
-    setItemList((currentValue) => {
-      return [...currentValue, toDoItem];
-    });
-    setToDoItem("");
+    if (toDoItem.length > 0) {
+      setItemList((currentValue) => {
+        return [...currentValue, toDoItem];
+      });
+      setToDoItem("");
+    }
+  };
+
+  const checkboxHandler = (e) => {
+    if (e.target.tagName === "LI") {
+      if (e.target.style.textDecoration) {
+        e.target.style.removeProperty("text-decoration");
+      } else {
+        e.target.style.setProperty("text-decoration", "line-through");
+      }
+    }
   };
 
   return (
@@ -31,8 +44,36 @@ const ToDoList = () => {
       <button onClick={onClickHandler}>Add</button>
       <div>
         <ul>
-          {itemList.map((i, index) => {
-            return <li key={index}>{i}</li>;
+          {itemList.map((item, index) => {
+            return (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-start",
+                  marginLeft: "100px",
+                }}
+              >
+                <li onClick={checkboxHandler}>
+                  {item}
+                  <button
+                    style={{ marginLeft: "10px" }}
+                    onClick={() => {
+                      setItemList((currentList) => {
+                        return currentList.filter((eachItem) => {
+                          return eachItem !== item;
+                          /*item = the one that user chose to delete 
+                          (by clicking its delete button) */
+                        });
+                      });
+                    }}
+                  >
+                    Delete
+                  </button>
+                </li>
+              </div>
+            );
           })}
         </ul>
       </div>
