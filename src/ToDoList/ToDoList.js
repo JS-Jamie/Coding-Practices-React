@@ -22,7 +22,7 @@ const ToDoList = () => {
     }
   };
 
-  const checkboxHandler = (e) => {
+  const crossoutHandler = (e) => {
     if (e.target.tagName === "LI") {
       if (e.target.style.textDecoration) {
         e.target.style.removeProperty("text-decoration");
@@ -55,7 +55,7 @@ const ToDoList = () => {
                   marginLeft: "100px",
                 }}
               >
-                <li onClick={checkboxHandler}>
+                <li onClick={crossoutHandler}>
                   {item}
                   <button
                     style={{ marginLeft: "10px" }}
