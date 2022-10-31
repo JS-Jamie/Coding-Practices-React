@@ -27,6 +27,19 @@ const ShoppingListRewrite = () => {
     setInputValue("");
   };
 
+  const handleDecrement = (index) => {
+    if (itemList[index].qty > 0) {
+      const newItemList = [...itemList];
+      newItemList[index].qty = newItemList[index].qty - 1;
+      setItemList(newItemList);
+    }
+  };
+
+  const handleIncrement = (index) => {
+    const newItemList = [...itemList];
+    newItemList[index].qty = newItemList[index].qty + 1;
+    setItemList(newItemList);
+  };
   return (
     <div>
       <h1>Shopping List (Updated)</h1>
@@ -40,16 +53,22 @@ const ShoppingListRewrite = () => {
       <ul>
         {itemList.map((i, index) => {
           return (
-            <div style={{ display: "center" }}>
+            <div key={index} style={{ display: "center" }}>
               <input type="checkbox" />
               {i.name}
               {"   "}
               <button>
-                <FontAwesomeIcon icon={faChevronLeft} />
+                <FontAwesomeIcon
+                  icon={faChevronLeft}
+                  onClick={() => handleDecrement(index)}
+                />
               </button>
               <span>{i.qty}</span>
               <button>
-                <FontAwesomeIcon icon={faChevronRight} />
+                <FontAwesomeIcon
+                  icon={faChevronRight}
+                  onClick={() => handleIncrement(index)}
+                />
               </button>
             </div>
           );
