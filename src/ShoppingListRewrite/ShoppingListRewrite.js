@@ -40,6 +40,7 @@ const ShoppingListRewrite = () => {
     newItemList[index].qty = newItemList[index].qty + 1;
     setItemList(newItemList);
   };
+
   return (
     <div>
       <h1>Shopping List (Updated)</h1>
@@ -49,7 +50,9 @@ const ShoppingListRewrite = () => {
         placeholder="Add your item..."
         value={inputValue}
       />
-      <button onClick={handleAdd}>Add</button>
+      <button onClick={handleAdd}>
+        <FontAwesomeIcon icon={faPlus} />
+      </button>
       <ul>
         {itemList.map((i, index) => {
           return (
