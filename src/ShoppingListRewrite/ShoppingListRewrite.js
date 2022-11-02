@@ -15,6 +15,7 @@ const ShoppingListRewrite = () => {
     { name: "example2", qty: 2, isSelected: false },
     { name: "example3", qty: 3, isSelected: true },
   ]);
+  const [total, setTotal] = useState(6);
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -41,42 +42,65 @@ const ShoppingListRewrite = () => {
     setItemList(newItemList);
   };
 
+  const totalCounter = () => {
+    const newItemList = [...itemList];
+    const totalQty = newItemList.reduce(
+      (prevValue, currentValue) => prevValue + currentValue.qty,
+      0
+    );
+    return totalQty;
+    setTotal(totalQty);
+  };
+
   return (
     <div>
       <h1>Shopping List (Updated)</h1>
-      <input
-        onChange={handleChange}
-        type="text"
-        placeholder="Add your item..."
-        value={inputValue}
-      />
-      <button onClick={handleAdd}>
-        <FontAwesomeIcon icon={faPlus} />
-      </button>
-      <ul>
-        {itemList.map((i, index) => {
-          return (
-            <div key={index} style={{ display: "center" }}>
-              <input type="checkbox" />
-              {i.name}
-              {"   "}
-              <button>
-                <FontAwesomeIcon
-                  icon={faChevronLeft}
-                  onClick={() => handleDecrement(index)}
-                />
-              </button>
-              <span>{i.qty}</span>
-              <button>
-                <FontAwesomeIcon
-                  icon={faChevronRight}
-                  onClick={() => handleIncrement(index)}
-                />
-              </button>
-            </div>
-          );
-        })}
-      </ul>
+      <div className="shoppingListContainter">
+        <input
+          onChange={handleChange}
+          type="text"
+          placeholder="Add your item..."
+          value={inputValue}
+        />
+        <button onClick={handleAdd}>
+          <FontAwesomeIcon icon={faPlus} />
+        </button>
+        <ul style={{ textAlign: "left", marginLeft: "35px" }}>
+          {itemList.map((i, index) => {
+            return (
+              <div key={index} style={{ display: "center" }}>
+                <>
+                  {i.isSelected ? (
+                    <>
+                      <FontAwesomeIcon icon={faCheckCircle} />
+                      <span className="completed">
+                        {"  "}
+                        {i.name}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <FontAwesomeIcon icon={faCircle} />
+                      <span>
+                        {"  "}
+                        {i.name}
+                      </span>
+                    </>
+                  )}
+                </>
+                <button onClick={() => handleDecrement(index)}>
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+                <span>{i.qty}</span>
+                <button onClick={() => handleIncrement(index)}>
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+              </div>
+            );
+          })}
+        </ul>
+        <p>Total: {totalCounter()}</p>
+      </div>
     </div>
   );
 };

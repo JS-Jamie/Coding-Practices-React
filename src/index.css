@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.shoppingListContainter {
+  background-color: #ec645b ;
+  width: 300px;
+  height: min-content;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 0% 30%;
+  box-shadow: 10px 10px 26px 0px rgba(0, 0, 0, 0.35);
+}
+.completed {
+  text-decoration: line-through;
+}
