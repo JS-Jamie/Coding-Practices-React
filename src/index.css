@@ -12,15 +12,112 @@ code {
     monospace;
 }
 
+/* Shopping List App */
+
+.shoppingListApp {
+  font-family: sans-serif;
+  text-align: center;
+}
+
 .shoppingListContainter {
   background-color: #ec645b ;
-  width: 300px;
+    width: 300px;
   height: min-content;
   border-radius: 5px;
   padding: 20px;
   margin: 0% 30%;
-  box-shadow: 10px 10px 26px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 10px 10px 26px 0px rgba(27, 17, 17, 0.35);
 }
+
+.newItemBox {
+  background: #fbc1bb;
+  color: #ec645b;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 5px;
+
+}
+
+.newItemInput {
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  color: #ec645b;
+  width: 90%;
+  height: 30px;
+}
+.newItemInput:focus {
+  border: none;
+  outline: none;
+}
+.newItemInput::placeholder {
+  color: #ec645b;
+}
+
+.itemList {
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  
+  flex-direction: column;
+  
+}
+
+.itemListContainer {
+  color: white;
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+  padding: 15px 0 15px 0;
+  border-bottom: 1px #fbc1bb solid; 
+  width: 100%;
+  
+}
+
+/* display: flex;
+justify-content: space-between;
+width: 100%; */
+
+.itemName {
+  cursor: pointer;
+  padding-right: 60px;
+ 
+}
+
+.shoppingButton {
+  background: transparent;
+  border: none;
+  margin: 3px;
+  color: #ec645b;
+}
+.shoppingButton:focus {
+  outline: 0;
+}
+.shoppingButton:hover {
+  cursor: pointer;
+}
+
 .completed {
   text-decoration: line-through;
+}
+
+.qty {
+  display: inline-flex;  
+  align-items: center;
+ 
+  border: 1px solid #ec645b;
+  background: white;
+  border-radius: 50px;
+  font-size: 12px;
+  color: #ec645b;
+  min-width: 60px;
+  justify-content: space-between;
+ 
+}
+
+.total {
+   color: white;
 }

@@ -22,10 +22,15 @@ const ShoppingListRewrite = () => {
   };
 
   const handleAdd = () => {
-    setItemList((currentValue) => {
-      return [...currentValue, { name: inputValue, qty: 1, isSelected: false }];
-    });
-    setInputValue("");
+    if (inputValue.length > 0) {
+      setItemList((currentValue) => {
+        return [
+          ...currentValue,
+          { name: inputValue, qty: 1, isSelected: false },
+        ];
+      });
+      setInputValue("");
+    }
   };
 
   const handleDecrement = (index) => {
@@ -42,6 +47,12 @@ const ShoppingListRewrite = () => {
     setItemList(newItemList);
   };
 
+  const handleToggle = (index) => {
+    const newItemList = [...itemList];
+    newItemList[index].isSelected = !newItemList[index].isSelected;
+    setItemList(newItemList);
+  };
+
   const totalCounter = () => {
     const newItemList = [...itemList];
     const totalQty = newItemList.reduce(
@@ -53,53 +64,70 @@ const ShoppingListRewrite = () => {
   };
 
   return (
-    <div>
+    <div className="shoppingListApp">
       <h1>Shopping List (Updated)</h1>
       <div className="shoppingListContainter">
-        <input
-          onChange={handleChange}
-          type="text"
-          placeholder="Add your item..."
-          value={inputValue}
-        />
-        <button onClick={handleAdd}>
-          <FontAwesomeIcon icon={faPlus} />
-        </button>
-        <ul style={{ textAlign: "left", marginLeft: "35px" }}>
-          {itemList.map((i, index) => {
-            return (
-              <div key={index} style={{ display: "center" }}>
-                <>
-                  {i.isSelected ? (
-                    <>
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                      <span className="completed">
-                        {"  "}
-                        {i.name}
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <FontAwesomeIcon icon={faCircle} />
-                      <span>
-                        {"  "}
-                        {i.name}
-                      </span>
-                    </>
-                  )}
-                </>
-                <button onClick={() => handleDecrement(index)}>
-                  <FontAwesomeIcon icon={faChevronLeft} />
-                </button>
-                <span>{i.qty}</span>
-                <button onClick={() => handleIncrement(index)}>
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </button>
-              </div>
-            );
-          })}
-        </ul>
-        <p>Total: {totalCounter()}</p>
+        <div className="newItemBox">
+          <input
+            className="newItemInput"
+            onChange={handleChange}
+            type="text"
+            placeholder="Add your item..."
+            value={inputValue}
+          />
+          <FontAwesomeIcon icon={faPlus} onClick={handleAdd} />
+        </div>
+        <div className="itemList">
+          <ul style={{ padding: 0 }}>
+            {itemList.map((i, index) => {
+              return (
+                <div>
+                  <div className="itemListContainer" key={index}>
+                    <span
+                      className="itemName"
+                      onClick={() => handleToggle(index)}
+                    >
+                      {i.isSelected ? (
+                        <>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                          <span className="completed">
+                            {"  "}
+                            {i.name}
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <FontAwesomeIcon icon={faCircle} />
+                          <span>
+                            {"  "}
+                            {i.name}
+                          </span>
+                        </>
+                      )}
+                    </span>
+
+                    <span className="qty">
+                      <button
+                        className="shoppingButton"
+                        onClick={() => handleDecrement(index)}
+                      >
+                        <FontAwesomeIcon icon={faChevronLeft} />
+                      </button>
+                      <span>{i.qty}</span>
+                      <button
+                        className="shoppingButton"
+                        onClick={() => handleIncrement(index)}
+                      >
+                        <FontAwesomeIcon icon={faChevronRight} />
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </ul>
+        </div>
+        <p className="total">Total: {totalCounter()}</p>
       </div>
     </div>
   );
