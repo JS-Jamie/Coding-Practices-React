@@ -6,6 +6,7 @@ import {
   faCircle,
   faCheckCircle,
   faPlus,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 
 const ShoppingListRewrite = () => {
@@ -16,6 +17,10 @@ const ShoppingListRewrite = () => {
     { name: "example3", qty: 3, isSelected: true },
   ]);
   const [total, setTotal] = useState(6);
+
+  useEffect(() => {
+    totalCounter();
+  }, [itemList]);
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -59,7 +64,6 @@ const ShoppingListRewrite = () => {
       (prevValue, currentValue) => prevValue + currentValue.qty,
       0
     );
-    return totalQty;
     setTotal(totalQty);
   };
 
@@ -109,17 +113,35 @@ const ShoppingListRewrite = () => {
                     <span className="qty">
                       <button
                         className="shoppingButton"
-                        onClick={() => handleDecrement(index)}
+                        onClick={() => {
+                          handleDecrement(index);
+                          totalCounter();
+                        }}
                       >
                         <FontAwesomeIcon icon={faChevronLeft} />
                       </button>
                       <span>{i.qty}</span>
                       <button
                         className="shoppingButton"
-                        onClick={() => handleIncrement(index)}
+                        onClick={() => {
+                          handleIncrement(index);
+                          totalCounter();
+                        }}
                       >
                         <FontAwesomeIcon icon={faChevronRight} />
                       </button>
+                    </span>
+                    <span className="trashCan">
+                      <FontAwesomeIcon
+                        icon={faTrashCan}
+                        onClick={() => {
+                          setItemList((currentList) => {
+                            return currentList.filter((eachItem) => {
+                              return eachItem !== i;
+                            });
+                          });
+                        }}
+                      />
                     </span>
                   </div>
                 </div>
@@ -127,7 +149,7 @@ const ShoppingListRewrite = () => {
             })}
           </ul>
         </div>
-        <p className="total">Total: {totalCounter()}</p>
+        <p className="total">Total: {total}</p>
       </div>
     </div>
   );

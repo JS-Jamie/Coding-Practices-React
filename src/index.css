@@ -25,7 +25,7 @@ code {
   height: min-content;
   border-radius: 5px;
   padding: 20px;
-  margin: 0% 30%;
+  margin: 0% auto;
   box-shadow: 10px 10px 26px 0px rgba(27, 17, 17, 0.35);
 }
 
@@ -70,7 +70,7 @@ code {
   color: white;
   display: flex;
   align-items: center; 
-  justify-content: space-between;
+  
   padding: 15px 0 15px 0;
   border-bottom: 1px #fbc1bb solid; 
   width: 100%;
@@ -84,6 +84,8 @@ width: 100%; */
 .itemName {
   cursor: pointer;
   padding-right: 60px;
+  padding-left: 10px;
+  flex: 1.6;
  
 }
 
@@ -115,7 +117,15 @@ width: 100%; */
   color: #ec645b;
   min-width: 60px;
   justify-content: space-between;
+  flex: 0.5;
  
+}
+
+.trashCan {
+  flex: 0.3;
+  text-align: right;
+  padding-right: 10px;
+  cursor: pointer;
 }
 
 .total {
