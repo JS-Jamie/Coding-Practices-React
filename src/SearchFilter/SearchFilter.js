@@ -33,15 +33,39 @@ const SearchFilter = () => {
         icon="search"
         placeholder="Search title..."
         onChange={handleChange}
+        style={{ margin: "10px" }}
       />
 
       <Card.Group>
-        <Card>
-          <Card.Content>
-            <Card.Header></Card.Header>
-            <Card.Description></Card.Description>
-          </Card.Content>
-        </Card>
+        {input.length > 0
+          ? filteredResults.map((item, id) => {
+              return (
+                <Card key={id}>
+                  <Card.Content>
+                    <Card.Header>{item.title}</Card.Header>
+                    <Card.Description>
+                      {item.author.firstName} {item.author.lastName}
+                    </Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>{item.viewCount}</Card.Content>
+                </Card>
+              );
+            })
+          : mockData.map((item, id) => {
+              return (
+                <Card key={id}>
+                  <Card.Content>
+                    <Card.Header>{item.title}</Card.Header>
+                    <Card.Description>
+                      {item.author.firstName} {item.author.lastName}
+                    </Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    View Count: {item.viewCount}
+                  </Card.Content>
+                </Card>
+              );
+            })}
       </Card.Group>
     </div>
   );
