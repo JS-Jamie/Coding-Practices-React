@@ -5,16 +5,15 @@ import { mockData } from "./mockData";
 const SearchFilter = () => {
   const [input, setInput] = useState("");
   const [option, setOption] = useState("viewCount");
-  const [filteredResults, setFilteredResults] = useState([]);
+  const [filteredResults, setFilteredResults] = useState(mockData);
 
   useEffect(() => {
     setFilteredResults(mockData);
   }, []);
 
   useEffect(() => {
-    console.log("option inside 2nd useEffect", option);
     handleArrayUpdate();
-  }, [option, filteredResults]);
+  }, [option]);
 
   const searchItems = (text) => {
     setInput(text);
@@ -38,20 +37,16 @@ const SearchFilter = () => {
   };
 
   const handleArrayUpdate = () => {
-    if (option) {
-      if (option === "viewCount") {
-        console.log("viewCount selected", filteredResults, option);
-        const sortedByViewCount = mockData.sort(
-          (a, b) => b.viewCount - a.viewCount
-        );
-        setFilteredResults(sortedByViewCount);
-      } else if (option === "newest") {
-        console.log("newest selected", filteredResults, option);
-        const sortedByNewest = mockData.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        );
-        setFilteredResults(sortedByNewest);
-      }
+    if (option === "viewCount") {
+      const sortedByViewCount = [...filteredResults].sort(
+        (a, b) => b.viewCount - a.viewCount
+      );
+      setFilteredResults(sortedByViewCount);
+    } else if (option === "newest") {
+      const sortedByNewest = [...filteredResults].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setFilteredResults(sortedByNewest);
     }
   };
 
@@ -67,7 +62,7 @@ const SearchFilter = () => {
       <span>
         <select
           // value={option}
-          // defaultValue="viewCount"
+          defaultValue="viewCount"
           onChange={handleSelectionChange}
         >
           <option value="viewCount">Most Viewed</option>
